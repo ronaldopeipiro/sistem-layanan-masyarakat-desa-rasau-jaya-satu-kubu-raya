@@ -13,6 +13,14 @@ if (isset($_GET['p'])) {
 			}
 			break;
 
+		case 'edit-data-layanan':
+			if ($user_level == "operator") {
+				include "content/dashboard/edit.php";
+			} else {
+				include "content/layanan/views.php";
+			}
+			break;
+
 			// Pengaturan
 		case 'pengaturan':
 			include "content/pengaturan/views.php";

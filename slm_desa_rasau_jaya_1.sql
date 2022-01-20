@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jan 08, 2022 at 07:29 AM
+-- Generation Time: Jan 20, 2022 at 06:16 AM
 -- Server version: 5.7.33
 -- PHP Version: 7.4.19
 
@@ -33,20 +33,22 @@ CREATE TABLE `tb_layanan` (
   `id_user` int(10) NOT NULL,
   `nama` text NOT NULL,
   `nik` varchar(16) NOT NULL,
+  `no_kk` varchar(16) NOT NULL,
   `keperluan` mediumtext NOT NULL,
   `no_surat` text,
-  `status` enum('0','1','2') NOT NULL
+  `status` enum('0','1','2') NOT NULL,
+  `waktu_update` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `id_user_update` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tb_layanan`
 --
 
-INSERT INTO `tb_layanan` (`id_layanan`, `waktu_data`, `id_user`, `nama`, `nik`, `keperluan`, `no_surat`, `status`) VALUES
-(1, '2022-01-08 00:30:54', 1, 'Ronald', '2983928302302930', 'testajs ajsabsajsausj ajb', '02830323', '0'),
-(2, '2022-01-08 00:31:37', 1, 'Ronal', '2030293029309090', 'ksjdkjs', 'jksjdksj', '0'),
-(3, '2022-01-08 00:32:06', 1, 'Ronal', '2030293029309090', 'ksjdkjs', 'jksjdksj', '0'),
-(4, '2022-01-08 00:32:19', 1, 'aksjaksjkjk', '2084039403940390', 'ishdjhsdh', 'ijdksjd', '0');
+INSERT INTO `tb_layanan` (`id_layanan`, `waktu_data`, `id_user`, `nama`, `nik`, `no_kk`, `keperluan`, `no_surat`, `status`, `waktu_update`, `id_user_update`) VALUES
+(2, '2022-01-20 12:12:19', 1, 'Wiwin Galuh', '9374934938493849', '9849384593849384', 'Testing test', '', '0', NULL, NULL),
+(3, '2022-01-20 12:12:48', 1, 'Fajrie', '9384938493843480', '9384938493849384', 'Testing App', '1010/SKTM-2021', '0', '2022-01-20 12:45:21', 1),
+(4, '2022-01-20 12:45:49', 1, 'Steven Chua', '9284938493849384', '8938593850340394', 'Testing Aplikasi SLM', '', '0', NULL, NULL);
 
 -- --------------------------------------------------------
 

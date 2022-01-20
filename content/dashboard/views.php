@@ -4,12 +4,13 @@ if (isset($_POST['simpan'])) {
 	if (submit_data_layanan() == 1) {
 		$berhasil = true;
 		$pesan_berhasil = "Data berhasil ditambah !";
-		// echo '<meta http-equiv="refresh" content="0">';
+		echo '<meta http-equiv="refresh" content="0; url=index.php?p=data-layanan">';
 	} else {
 		$gagal = true;
 		$pesan_gagal = "Data gagal ditambah !";
 	}
 }
+
 
 ?>
 
@@ -59,6 +60,7 @@ if (isset($_POST['simpan'])) {
 							<div class="form-group mb-4">
 								<label class="mb-2" for="nama">
 									Nama Lengkap
+									<small class="text-danger">(*Wajib diisi !)</small>
 								</label>
 								<input type="text" autofocus name="nama" id="nama" class="form-control" placeholder="Masukkan nama lengkap anda ..." required>
 							</div>
@@ -66,13 +68,23 @@ if (isset($_POST['simpan'])) {
 							<div class="form-group mb-4">
 								<label class="mb-2" for="nik">
 									NIK
+									<small class="text-danger">(*Wajib diisi !)</small>
 								</label>
 								<input type="text" name="nik" id="nik" class="form-control" placeholder="Masukkan 16 Digit NIK ..." required minlength="16" maxlength="16" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
 							</div>
 
 							<div class="form-group mb-4">
-								<label class="mb-2" for="nama">
+								<label class="mb-2" for="no_kk">
+									No. Kartu Keluarga
+									<small class="text-danger">(*Wajib diisi !)</small>
+								</label>
+								<input type="text" name="no_kk" id="no_kk" class="form-control" placeholder="Masukkan 16 Digit No. KK ..." required minlength="16" maxlength="16" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
+							</div>
+
+							<div class="form-group mb-4">
+								<label class="mb-2" for="keperluan">
 									Keperluan
+									<small class="text-danger">(*Wajib diisi !)</small>
 								</label>
 								<textarea name="keperluan" id="keperluan" rows="3" class="form-control" required placeholder="Masukkan keperluan anda ..."></textarea>
 							</div>
@@ -81,7 +93,7 @@ if (isset($_POST['simpan'])) {
 								<label class="mb-2" for="no_surat">
 									Nomor Surat
 								</label>
-								<input type="text" name="no_surat" id="no_surat" class="form-control" placeholder="Masukkan nomor surat ..." required>
+								<input type="text" name="no_surat" id="no_surat" class="form-control" placeholder="Masukkan nomor surat ...">
 							</div>
 
 							<div class="form-group mt-4">

@@ -288,7 +288,6 @@ if (empty($_SESSION["logged_in"])) {
 
 			$('.btn-hapus').on('click', function(e) {
 				event.preventDefault(); // prevent form submit
-
 				Swal.fire({
 					title: 'Apakah anda yakin ?',
 					text: "Pilih ya, jika anda ingin menghapus data !",
@@ -300,8 +299,7 @@ if (empty($_SESSION["logged_in"])) {
 					cancelButtonText: 'Batal'
 				}).then((result) => {
 					if (result.isConfirmed) {
-						var form = $(this).parents('form');
-						form.submit();
+						$(this).parents('form').submit();
 					}
 				});
 			});

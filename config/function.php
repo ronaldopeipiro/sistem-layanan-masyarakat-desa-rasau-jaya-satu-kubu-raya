@@ -30,20 +30,75 @@ function submit_data_layanan()
 	$id_user = $_POST['id_user'];
 	$nama = $_POST['nama'];
 	$nik = $_POST['nik'];
+	$no_kk = $_POST['no_kk'];
 	$keperluan = $_POST['keperluan'];
 	$no_surat = $_POST['no_surat'];
-
 	$status = "0";
 
-	$sql_query = "INSERT INTO tb_layanan (waktu_data, id_user, nama, nik, keperluan, no_surat, status) VALUES (:waktu_data, :id_user, :nama, :nik, :keperluan, :no_surat, :status)";
+	$sql_query = "INSERT INTO tb_layanan (waktu_data, id_user, nama, nik, no_kk, keperluan, no_surat, status) VALUES (:waktu_data, :id_user, :nama, :nik, :no_kk, :keperluan, :no_surat, :status)";
 	$query_data = $db_connect->prepare($sql_query);
 	$query_data->bindParam(':waktu_data', $waktu_data);
 	$query_data->bindParam(':id_user', $id_user);
 	$query_data->bindParam(':nama', $nama);
 	$query_data->bindParam(':nik', $nik);
+	$query_data->bindParam(':no_kk', $no_kk);
 	$query_data->bindParam(':keperluan', $keperluan);
 	$query_data->bindParam(':no_surat', $no_surat);
 	$query_data->bindParam(':status', $status);
+	$query_data->execute();
+
+	$error = $query_data->errorInfo();
+	if ($error[0] == '00000') {
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+
+function ubah_data_layanan()
+{
+	global $db_connect;
+
+	$waktu_data = date("Y-m-d H:i:s");
+
+	$id_layanan = $_POST['id_layanan'];
+	$id_user = $_POST['id_user'];
+	$nama = $_POST['nama'];
+	$nik = $_POST['nik'];
+	$no_kk = $_POST['no_kk'];
+	$keperluan = $_POST['keperluan'];
+	$no_surat = $_POST['no_surat'];
+
+	$sql_query = "UPDATE tb_layanan SET nama=:nama, nik=:nik, no_kk=:no_kk, keperluan=:keperluan, no_surat=:no_surat, waktu_update=:waktu_update, id_user_update=:id_user_update WHERE id_layanan=:id_layanan";
+	$query_data = $db_connect->prepare($sql_query);
+	$query_data->bindParam(':nama', $nama);
+	$query_data->bindParam(':nik', $nik);
+	$query_data->bindParam(':no_kk', $no_kk);
+	$query_data->bindParam(':keperluan', $keperluan);
+	$query_data->bindParam(':no_surat', $no_surat);
+	$query_data->bindParam(':waktu_update', $waktu_data);
+	$query_data->bindParam(':id_user_update', $id_user);
+	$query_data->bindParam(':id_layanan', $id_layanan);
+	$query_data->execute();
+
+	$error = $query_data->errorInfo();
+	if ($error[0] == '00000') {
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+function hapus_data_layanan()
+{
+	global $db_connect;
+
+	$id_layanan = $_POST['id_layanan'];
+
+	$sql_query = "DELETE FROM tb_layanan WHERE id_layanan=:id_layanan";
+	$query_data = $db_connect->prepare($sql_query);
+	$query_data->bindParam(':id_layanan', $id_layanan);
 	$query_data->execute();
 
 	$error = $query_data->errorInfo();

@@ -1,13 +1,13 @@
 <?php
 
-if (isset($_POST['simpan'])) {
-	if (submit_data_layanan() == 1) {
+if (isset($_POST['hapus_data'])) {
+	if (hapus_data_layanan() == 1) {
 		$berhasil = true;
-		$pesan_berhasil = "Data berhasil ditambah !";
-		// echo '<meta http-equiv="refresh" content="0">';
+		$pesan_berhasil = "Data berhasil dihapus !";
+		echo '<meta http-equiv="refresh" content="1; url=index.php?p=data-layanan">';
 	} else {
 		$gagal = true;
-		$pesan_gagal = "Data gagal ditambah !";
+		$pesan_gagal = "Data gagal dihapus !";
 	}
 }
 
@@ -59,7 +59,7 @@ if (isset($_POST['simpan'])) {
 							</div>
 						</div>
 
-						<table class="table table-bordered table-hover" id="data-table-custom">
+						<table class="table table-sm table-bordered table-hover table-responsive" id="data-table-custom" style="font-size: 12px;">
 							<thead>
 								<tr class="text-center">
 									<th>No.</th>
@@ -67,8 +67,12 @@ if (isset($_POST['simpan'])) {
 									<th>Waktu</th>
 									<th>Nama</th>
 									<th>NIK</th>
+									<th>No. KK</th>
 									<th>Keperluan</th>
 									<th>No. Surat</th>
+									<?php if ($user_level == "operator") : ?>
+										<th>Aksi</th>
+									<?php endif; ?>
 								</tr>
 							</thead>
 							<tbody>
@@ -94,9 +98,29 @@ if (isset($_POST['simpan'])) {
 											<?= strftime('%H:%M:%S WIB', strtotime($row['waktu_data'])); ?>
 										</td>
 										<td style="vertical-align: middle;"><?= $row['nama']; ?></td>
-										<td style="vertical-align: middle;"><?= $row['nik']; ?></td>
+										<td class="text-center" style="vertical-align: middle;"><?= $row['nik']; ?></td>
+										<td class="text-center" style="vertical-align: middle;"><?= $row['no_kk']; ?></td>
 										<td style="vertical-align: middle;"><?= $row['keperluan']; ?></td>
 										<td style="vertical-align: middle;"><?= $row['no_surat']; ?></td>
+										<?php if ($user_level == "operator") : ?>
+											<td style="vertical-align: middle;">
+												<div class="list-unstyled d-flex justify-content-center">
+													<li>
+														<a href="index.php?p=edit-data-layanan&id=<?= $row['id_layanan']; ?>" class="btn btn-warning" title="Ubah Data">
+															<i class="fa fa-edit"></i>
+														</a>
+													</li>
+													<li style="margin-left: 5px;">
+														<form action="" enctype="multipart/form-data" method="post">
+															<input type="hidden" name="id_layanan" value="<?= $row['id_layanan']; ?>">
+															<button type="submit" name="hapus_data" onclick="return confirm('Apakah anda yakin ingin menghapus data ini ?')" class="btn btn-danger" title="Ubah Data">
+																<i class="fa fa-trash"></i>
+															</button>
+														</form>
+													</li>
+												</div>
+											</td>
+										<?php endif; ?>
 									</tr>
 								<?php endwhile; ?>
 							</tbody>
@@ -121,7 +145,7 @@ if (isset($_POST['simpan'])) {
 			"deferRender": true,
 			// "dom": 'lBfrtipS',
 			"initComplete": function() {
-				var keperluan = this.api().column(5);
+				var keperluan = this.api().column(6);
 				var keperluanSelect = $('<select class="filter form-control js-select-2"><option value="">Semua</option></select>')
 					.appendTo('#keperluanSelect')
 					.on('change', function() {
